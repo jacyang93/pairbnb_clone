@@ -22,6 +22,14 @@ class Clearance::UsersController < Clearance::BaseController
       redirect_back_or url_after_create
     else
       render template: "users/new"
+    # else
+    #       # @user.save
+    #       respond_to do |format|
+    #           format.html {render template: "user/new"}
+    #           format.js
+    #       end
+    #       # render template: "user/new"
+    #   end
     end
   end
 
