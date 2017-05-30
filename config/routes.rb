@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :listings
   get 'welcome/index'
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
