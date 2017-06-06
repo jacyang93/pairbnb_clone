@@ -5,8 +5,14 @@ class UsersController < Clearance::UsersController
     render template: "users/new"
   end
 
+  def show
+    @user = User.find(params[:id])
+    @bookings = @user.bookings
+  end
+
   def create
     @user = User.new(user_params)
+
     if @user.save
       sign_in @user
       redirect_back_or url_after_create
@@ -51,7 +57,7 @@ class UsersController < Clearance::UsersController
   # end
 
   def user_params
-  	params.require(:user).permit(:first_name, :last_name, :age, :email, :password, :gender)
+  	params.require(:user).permit(:name, :age, :email, :password, :gender, :photo)
   end
   # def user_params
   #   params[Clearance.configuration.user_parameter] || Hash.new

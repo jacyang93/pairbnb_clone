@@ -13,6 +13,6 @@ class SessionsController < Clearance::SessionsController
       @notice = "User created - confirm or edit details..."
     end
     sign_in(user)
-    redirect_to @next, :notice => @notice
+    redirect_to "/listings", :notice => @notice
   end
 end

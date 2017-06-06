@@ -20,5 +20,17 @@
   <%= @listing.number_of_rooms %>
 </p>
 
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
+<p>
+  <strong>Picture</strong>
+  <% @listing.photos.each do |photo| %>
+    <%= image_tag photo.image.thumb.url %>
+  <% end %>
+  <%# @listing.photos.each do |photo| %>
+      <%# cl_image_tag(photo.url) %>
+  <%# end %>
+</p>
+
+
+<%= render "bookings/form" %>
+<%= link_to 'Edit', edit_listing_path(@listing) %>
 <%= link_to 'Back', listings_path %>

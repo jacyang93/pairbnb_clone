@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530065528) do
+ActiveRecord::Schema.define(version: 20170606023626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,18 @@ ActiveRecord::Schema.define(version: 20170530065528) do
     t.index ["user_id"], name: "index_authentications_on_user_id", using: :btree
   end
 
+  create_table "bookings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "listing_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "num_of_guests"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["listing_id"], name: "index_bookings_on_listing_id", using: :btree
+    t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
+  end
+
   create_table "listings", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "description"
@@ -32,24 +44,39 @@ ActiveRecord::Schema.define(version: 20170530065528) do
     t.integer  "number_of_rooms"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "max_guest"
+    t.integer  "price"
     t.index ["user_id"], name: "index_listings_on_user_id", using: :btree
   end
 
+  create_table "photos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "image"
+    t.integer  "listing_id"
+    t.index ["listing_id"], name: "index_photos_on_listing_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.string   "name"
-    t.string   "email",                          null: false
+    t.string   "email",                                      null: false
     t.string   "encrypted_password", limit: 128
     t.string   "confirmation_token", limit: 128
-    t.string   "remember_token",     limit: 128, null: false
+    t.string   "remember_token",     limit: 128,             null: false
     t.string   "gender"
     t.integer  "age"
     t.date     "birthday"
+    t.integer  "access_level",                   default: 0
+    t.string   "photo"
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["remember_token"], name: "index_users_on_remember_token", using: :btree
   end
 
   add_foreign_key "authentications", "users"
+  add_foreign_key "bookings", "listings"
+  add_foreign_key "bookings", "users"
   add_foreign_key "listings", "users"
+  add_foreign_key "photos", "listings"
 end

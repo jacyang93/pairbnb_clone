@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<h1>My listings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Description</th>
+      <th>Address</th>
+      <th>Number of rooms</th>
+      <th>Max Guests</th>
+      <th>Price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% current_user.listings.each do |x| %>
+      <tr>
+        <td><%= x.user.name %></td>
+        <td><%= x.description %></td>
+        <td><%= x.address %></td>
+        <td><%= x.number_of_rooms %></td>
+        <td><%= x.max_guest %></td>
+        <td><%= x.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<h1>My booking</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Number of guests</th>
+      <th>Total Price</th>
+      <th>Action</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <% @bookings.each do |booking| %>
+    <tr>
+    <td><%= link_to booking.listing.description, booking.listing %></td>
+    <td><%= booking.start_date.strftime('%d %B %Y') %></td>
+    <td><%= booking.end_date.strftime('%d %B %Y') %></td>
+    <td><%= booking.num_of_guests %></td>
+    <td><%= booking.total_price %></td>
+    <td><%= link_to "Cancel Booking", booking, method: :delete %></td>
+    </tr>
+    <% end %>
+</table>
+<%= link_to 'Back', listings_path %>

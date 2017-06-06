@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  resources :listings
-  get 'welcome/index'
 
+  get 'welcome/index'
+  resources :listings do
+    resources :bookings, only: [:create]
+  end
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
-
+  resources :users, controller: "users"
+  resources :bookings, only: [:create, :destroy]
   resources :users, controller: "users", only: [:create] do
     resource :password,
       controller: "clearance/passwords",

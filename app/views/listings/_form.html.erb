@@ -27,6 +27,21 @@
     <%= f.number_field :number_of_rooms %>
   </div>
 
+  <div class="field">
+    <%= f.label :max_guest %>
+    <%= f.number_field :max_guest %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :photos %>
+    <%= f.file_field :photos, multiple: true%>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

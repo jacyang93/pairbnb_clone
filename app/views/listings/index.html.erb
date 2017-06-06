@@ -9,6 +9,8 @@
       <th>Description</th>
       <th>Address</th>
       <th>Number of rooms</th>
+      <th>Max Guest</th>
+      <th>Price</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +22,8 @@
         <td><%= listing.description %></td>
         <td><%= listing.address %></td>
         <td><%= listing.number_of_rooms %></td>
+        <td><%= listing.max_guest %></td>
+        <td><%= listing.price %></td>
         <td><%= link_to 'Show', listing %></td>
         <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
         <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>

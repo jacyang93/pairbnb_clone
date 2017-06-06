@@ -1,6 +1,7 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
+
   # GET /listings
   # GET /listings.json
   def index
@@ -10,6 +11,7 @@ class ListingsController < ApplicationController
   # GET /listings/1
   # GET /listings/1.json
   def show
+    @booking = @listing.bookings.new
   end
 
   # GET /listings/new
@@ -25,9 +27,10 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = current_user.listings.new(listing_params)
-
     respond_to do |format|
       if @listing.save
+        store_photos
+
         format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
         format.json { render :show, status: :created, location: @listing }
       else
@@ -61,6 +64,11 @@ class ListingsController < ApplicationController
     end
   end
 
+  def store_photos
+    photos = params[:listing][:photos]
+    photos.each{|photo| @listing.photos.create(image: photo)} if photos
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
@@ -69,6 +77,6 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:description, :address, :number_of_rooms)
+      params.require(:listing).permit(:description, :address, :number_of_rooms, :photos, :max_guest, :price)
     end
 end
