@@ -41,6 +41,7 @@
       <th>Number of guests</th>
       <th>Total Price</th>
       <th>Action</th>
+      <th>Action</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -52,6 +53,7 @@
     <td><%= booking.num_of_guests %></td>
     <td><%= booking.total_price %></td>
     <td><%= link_to "Cancel Booking", booking, method: :delete %></td>
+    <td><%= link_to "Make Payment", braintree_new_path %></td>
     </tr>
     <% end %>
 </table>

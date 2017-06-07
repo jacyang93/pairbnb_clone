@@ -16,6 +16,7 @@ gem 'rails', '~> 5.0.3'
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 gem 'cloudinary'
+gem 'braintree'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
