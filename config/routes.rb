@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   get 'braintree/new'
-
+  get '/search', to: 'listings#search', as: 'search'
   get 'welcome/index'
   resources :listings do
     resources :bookings, only: [:create]
@@ -16,7 +16,9 @@ Rails.application.routes.draw do
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
   end
-
+  resources :bookings, only: [:destroy] do
+      resources :braintree, only: [:new, :create]
+    end
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
   get "/sign_up" => "users#new", as: "sign_up"

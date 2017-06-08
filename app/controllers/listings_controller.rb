@@ -8,6 +8,15 @@ class ListingsController < ApplicationController
     @listings = Listing.all.paginate(:page => params[:page]).per_page(5)
   end
 
+  def search
+      @listings = Listing.search(params[:term], fields: [price: :exact])
+      if @listings.blank?
+        redirect_to listings_path, flash:{danger: "no successful search result"}
+      else
+        render :index
+      end
+end
+
   # GET /listings/1
   # GET /listings/1.json
   def show
